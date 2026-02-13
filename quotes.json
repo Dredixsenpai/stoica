@@ -2,7 +2,10 @@
   {
     "id": 1,
     "theme": "On Action",
-    "moods": ["stuck", "procrastinating"],
+    "moods": [
+      "stuck",
+      "procrastinating"
+    ],
     "quote": "Waste no more time arguing what a good man should be. Be one.",
     "author": "Marcus Aurelius",
     "source": "Meditations, 10.16",
@@ -11,7 +14,10 @@
   {
     "id": 2,
     "theme": "On Perspective",
-    "moods": ["anxious", "overwhelmed"],
+    "moods": [
+      "anxious",
+      "overwhelmed"
+    ],
     "quote": "We suffer more often in imagination than in reality.",
     "author": "Seneca",
     "source": "Letters from a Stoic, Letter 13",
@@ -20,7 +26,10 @@
   {
     "id": 3,
     "theme": "On Discipline",
-    "moods": ["distracted", "unmotivated"],
+    "moods": [
+      "distracted",
+      "unmotivated"
+    ],
     "quote": "No man is free who is not master of himself.",
     "author": "Epictetus",
     "source": "Discourses, Book 2",
@@ -29,7 +38,10 @@
   {
     "id": 4,
     "theme": "On Adversity",
-    "moods": ["frustrated", "setback"],
+    "moods": [
+      "frustrated",
+      "setback"
+    ],
     "quote": "The impediment to action advances action. What stands in the way becomes the way.",
     "author": "Marcus Aurelius",
     "source": "Meditations, 5.20",
@@ -38,7 +50,10 @@
   {
     "id": 5,
     "theme": "On Time",
-    "moods": ["unfocused", "wasting time"],
+    "moods": [
+      "unfocused",
+      "wasting time"
+    ],
     "quote": "It is not that we have a short time to live, but that we waste much of it.",
     "author": "Seneca",
     "source": "On the Shortness of Life",
@@ -47,7 +62,10 @@
   {
     "id": 6,
     "theme": "On Character",
-    "moods": ["self-doubt", "uncertain"],
+    "moods": [
+      "self-doubt",
+      "uncertain"
+    ],
     "quote": "First say to yourself what you would be; and then do what you have to do.",
     "author": "Epictetus",
     "source": "Discourses, Book 3",
@@ -56,7 +74,10 @@
   {
     "id": 7,
     "theme": "On Resilience",
-    "moods": ["tired", "burned out"],
+    "moods": [
+      "tired",
+      "burned out"
+    ],
     "quote": "Difficulties strengthen the mind, as labor does the body.",
     "author": "Seneca",
     "source": "Letters from a Stoic, Letter 67",
@@ -65,10 +86,24 @@
   {
     "id": 8,
     "theme": "On Control",
-    "moods": ["angry", "reactive"],
+    "moods": [
+      "angry",
+      "reactive"
+    ],
     "quote": "It is not things themselves that disturb us, but our judgments about them.",
     "author": "Epictetus",
     "source": "Enchiridion, 5",
     "explanation": "Events are neutral. Our interpretation gives them emotional force."
+  },
+  {
+    "theme": "On Character",
+    "moods": [
+      "anxious",
+      "angry"
+    ],
+    "quote": "af",
+    "author": "af",
+    "source": "afdsa",
+    "explanation": "ASdasda"
   }
 ]
