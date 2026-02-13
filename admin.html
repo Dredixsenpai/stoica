@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Stoic Way – Card Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #0a0a0d;
+      --surface: #111114;
+      --surface-2: #18181c;
+      --border: #232323;
+      --border-hover: #3a3a3a;
+      --accent: #f4c15d;
+      --accent-soft: #f8dd9b;
+      --accent-3: #f06c5f;
+      --text: #f5f5f5;
+      --muted: #9f9f9f;
+      --dim: #555;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    /* ───── LAYOUT ───── */
+
+    .shell {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      max-width: 1280px;
+      margin: 0 auto;
+      min-height: 100vh;
+    }
+
+    .panel {
+      padding: 40px 32px;
+      overflow-y: auto;
+      max-height: 100vh;
+      position: sticky;
+      top: 0;
+    }
+
+    .panel-left {
+      border-right: 1px solid var(--border);
+    }
+
+    .panel-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--dim);
+      margin-bottom: 6px;
+    }
+
+    .panel-heading {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .panel-heading .count {
+      color: var(--dim);
+      font-weight: 400;
+    }
+
+    /* ───── CARD LIST ───── */
+
+    .card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      cursor: default;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      position: relative;
+    }
+
+    .card-item:hover {
+      border-color: var(--border-hover);
+      background: var(--surface-2);
+    }
+
+    .card-item-theme {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent-soft);
+      margin-bottom: 6px;
+    }
+
+    .card-item-quote {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 14px;
+      line-height: 1.55;
+      color: #ddd;
+      margin-bottom: 6px;
+    }
+
+    .card-item-author {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .card-item-moods {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 8px;
+    }
+
+    .mood-tag {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(244,193,93,0.06);
+      border: 1px solid rgba(244,193,93,0.12);
+      color: var(--accent-soft);
+    }
+
+    .card-item-actions {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      display: flex;
+      gap: 6px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .card-item:hover .card-item-actions {
+      opacity: 1;
+    }
+
+    .btn-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .btn-icon:hover {
+      border-color: var(--border-hover);
+      color: var(--text);
+      background: var(--surface-2);
+    }
+
+    .btn-icon.danger:hover {
+      border-color: #522;
+      color: var(--accent-3);
+      background: rgba(240,108,95,0.06);
+    }
+
+    /* ───── FORM ───── */
+
+    .form-section {
+      margin-bottom: 22px;
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--dim);
+      margin-bottom: 8px;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 14px;
+      line-height: 1.5;
+      transition: border-color 0.2s ease;
+      outline: none;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus {
+      border-color: var(--accent);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .checkbox-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .checkbox-pill {
+      position: relative;
+    }
+
+    .checkbox-pill input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .checkbox-pill span {
+      display: inline-block;
+      padding: 7px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .checkbox-pill input:checked + span {
+      border-color: var(--accent);
+      color: var(--accent-soft);
+      background: rgba(244,193,93,0.08);
+    }
+
+    .checkbox-pill span:hover {
+      border-color: var(--border-hover);
+      color: var(--text);
+    }
+
+    /* ───── THEME SELECT ───── */
+
+    .theme-input-wrap {
+      display: flex;
+      gap: 8px;
+    }
+
+    .theme-input-wrap select,
+    .theme-input-wrap input {
+      flex: 1;
+    }
+
+    select {
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239f9f9f' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+
+    select:focus {
+      border-color: var(--accent);
+    }
+
+    .or-label {
+      font-size: 11px;
+      color: var(--dim);
+      display: flex;
+      align-items: center;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    /* ───── BUTTONS ───── */
+
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 14px 24px;
+      border-radius: var(--radius-sm);
+      border: none;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-3));
+      color: #050507;
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+      filter: none;
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--border-hover);
+      color: var(--text);
+    }
+
+    .btn-download {
+      background: rgba(244,193,93,0.08);
+      border: 1px solid var(--accent);
+      color: var(--accent-soft);
+    }
+
+    .btn-download:hover {
+      background: rgba(244,193,93,0.14);
+    }
+
+    /* ───── STATUS TOAST ───── */
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      padding: 12px 24px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-2);
+      border: 1px solid var(--accent);
+      color: var(--accent-soft);
+      font-size: 13px;
+      opacity: 0;
+      transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.3s ease;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* ───── EMPTY STATE ───── */
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--dim);
+    }
+
+    .empty-state-icon {
+      font-size: 36px;
+      margin-bottom: 12px;
+      opacity: 0.4;
+    }
+
+    .empty-state-text {
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .empty-state-hint {
+      font-size: 12px;
+      color: #444;
+    }
+
+    /* ───── HEADER BAR ───── */
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,10,13,0.9);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .top-bar-logo {
+      font-family: "Times New Roman", Georgia, serif;
+      font-size: 18px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .top-bar-badge {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(244,193,93,0.2);
+      color: var(--accent-soft);
+      background: rgba(244,193,93,0.04);
+    }
+
+    .top-bar-link {
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .top-bar-link:hover {
+      color: var(--accent-soft);
+    }
+
+    /* ───── UNSAVED INDICATOR ───── */
+
+    .unsaved-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-3);
+      margin-left: 8px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .unsaved-dot.visible {
+      opacity: 1;
+    }
+
+    /* ───── RESPONSIVE ───── */
+
+    @media (max-width: 800px) {
+      .shell {
+        grid-template-columns: 1fr;
+      }
+      .panel {
+        max-height: none;
+        position: static;
+      }
+      .panel-left {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div class="top-bar-logo">Stoic Way</div>
+      <div class="top-bar-badge">Admin</div>
+      <span class="unsaved-dot" id="unsaved-dot" title="Unsaved changes"></span>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;">
+      <button class="btn btn-download" id="download-btn" style="padding:8px 18px;font-size:11px;">Download quotes.json</button>
+      <a href="cards.html" class="top-bar-link">View cards &rarr;</a>
+    </div>
+  </div>
+
+  <div class="shell">
+
+    <!-- LEFT: EXISTING CARDS -->
+    <div class="panel panel-left" id="list-panel">
+      <div class="panel-title">Library</div>
+      <div class="panel-heading">
+        Your cards <span class="count" id="card-count">(0)</span>
+      </div>
+      <div class="card-list" id="card-list"></div>
+    </div>
+
+    <!-- RIGHT: ADD / EDIT FORM -->
+    <div class="panel panel-right">
+      <div class="panel-title" id="form-mode-label">Add new card</div>
+      <div class="panel-heading" id="form-heading">New card</div>
+
+      <form id="card-form" autocomplete="off">
+
+        <div class="form-section">
+          <label for="quote-input">Quote</label>
+          <textarea id="quote-input" rows="3" placeholder="The quote text&hellip;"></textarea>
+        </div>
+
+        <div class="form-section">
+          <label for="author-input">Author</label>
+          <input type="text" id="author-input" placeholder="e.g. Marcus Aurelius" />
+        </div>
+
+        <div class="form-section">
+          <label for="source-input">Source</label>
+          <input type="text" id="source-input" placeholder="e.g. Meditations, 5.20" />
+        </div>
+
+        <div class="form-section">
+          <label>Theme</label>
+          <div class="theme-input-wrap">
+            <select id="theme-select">
+              <option value="">Pick existing&hellip;</option>
+            </select>
+            <span class="or-label">or</span>
+            <input type="text" id="theme-new" placeholder="New theme&hellip;" style="flex:1;" />
+          </div>
+        </div>
+
+        <div class="form-section">
+          <label>Moods (pick all that apply)</label>
+          <div class="checkbox-grid" id="mood-grid"></div>
+        </div>
+
+        <div class="form-section">
+          <label for="explanation-input">Explanation</label>
+          <textarea id="explanation-input" rows="4" placeholder="What does this quote mean? Why is it relevant today?"></textarea>
+        </div>
+
+        <div class="btn-row">
+          <button type="submit" class="btn btn-primary" id="submit-btn">Add card</button>
+          <button type="button" class="btn btn-secondary" id="cancel-btn" style="display:none;">Cancel</button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ════════════════════════════════════
+    //  STATE
+    // ════════════════════════════════════
+    let quotes = [];
+    let editingIndex = -1; // -1 = adding new
+    let hasUnsavedChanges = false;
+
+    const ALL_MOODS = [
+      "anxious", "angry", "grieving", "stuck",
+      "overwhelmed", "lonely", "doubting yourself",
+      "procrastinating", "facing change"
+    ];
+
+    // ════════════════════════════════════
+    //  DOM REFS
+    // ════════════════════════════════════
+    const cardList      = document.getElementById("card-list");
+    const cardCount     = document.getElementById("card-count");
+    const form          = document.getElementById("card-form");
+    const quoteInput    = document.getElementById("quote-input");
+    const authorInput   = document.getElementById("author-input");
+    const sourceInput   = document.getElementById("source-input");
+    const themeSelect   = document.getElementById("theme-select");
+    const themeNew      = document.getElementById("theme-new");
+    const explanationInput = document.getElementById("explanation-input");
+    const moodGrid      = document.getElementById("mood-grid");
+    const submitBtn     = document.getElementById("submit-btn");
+    const cancelBtn     = document.getElementById("cancel-btn");
+    const formModeLabel = document.getElementById("form-mode-label");
+    const formHeading   = document.getElementById("form-heading");
+    const downloadBtn   = document.getElementById("download-btn");
+    const unsavedDot    = document.getElementById("unsaved-dot");
+    const toastEl       = document.getElementById("toast");
+
+    // ════════════════════════════════════
+    //  BUILD MOOD CHECKBOXES
+    // ════════════════════════════════════
+    ALL_MOODS.forEach(mood => {
+      const lbl = document.createElement("label");
+      lbl.className = "checkbox-pill";
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.value = mood;
+      cb.name = "moods";
+      const span = document.createElement("span");
+      span.textContent = mood.charAt(0).toUpperCase() + mood.slice(1);
+      lbl.appendChild(cb);
+      lbl.appendChild(span);
+      moodGrid.appendChild(lbl);
+    });
+
+    // ════════════════════════════════════
+    //  LOAD quotes.json
+    // ════════════════════════════════════
+    fetch("quotes.json")
+      .then(res => {
+        if (!res.ok) throw new Error("Could not load quotes.json");
+        return res.json();
+      })
+      .then(data => {
+        quotes = data;
+        renderList();
+        rebuildThemeSelect();
+      })
+      .catch(() => {
+        // No existing file — start fresh
+        quotes = [];
+        renderList();
+      });
+
+    // ════════════════════════════════════
+    //  RENDER CARD LIST
+    // ════════════════════════════════════
+    function renderList() {
+      cardList.innerHTML = "";
+      cardCount.textContent = `(${quotes.length})`;
+
+      if (quotes.length === 0) {
+        cardList.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">&#9775;</div>
+            <div class="empty-state-text">No cards yet.</div>
+            <div class="empty-state-hint">Use the form on the right to add your first card.</div>
+          </div>`;
+        return;
+      }
+
+      quotes.forEach((q, i) => {
+        const item = document.createElement("div");
+        item.className = "card-item";
+        item.innerHTML = `
+          <div class="card-item-actions">
+            <button class="btn-icon" title="Edit" data-edit="${i}">&#9998;</button>
+            <button class="btn-icon danger" title="Delete" data-delete="${i}">&times;</button>
+          </div>
+          <div class="card-item-theme">${q.theme}</div>
+          <div class="card-item-quote">\u201C${q.quote}\u201D</div>
+          <div class="card-item-author">${q.author} &mdash; ${q.source}</div>
+          <div class="card-item-moods">
+            ${q.moods.map(m => `<span class="mood-tag">${m}</span>`).join("")}
+          </div>
+        `;
+        cardList.appendChild(item);
+      });
+
+      // Attach edit/delete handlers
+      cardList.querySelectorAll("[data-edit]").forEach(btn => {
+        btn.addEventListener("click", () => startEdit(parseInt(btn.dataset.edit)));
+      });
+      cardList.querySelectorAll("[data-delete]").forEach(btn => {
+        btn.addEventListener("click", () => deleteCard(parseInt(btn.dataset.delete)));
+      });
+    }
+
+    // ════════════════════════════════════
+    //  THEME SELECT
+    // ════════════════════════════════════
+    function rebuildThemeSelect() {
+      const themes = [...new Set(quotes.map(q => q.theme))].sort();
+      themeSelect.innerHTML = '<option value="">Pick existing\u2026</option>';
+      themes.forEach(t => {
+        const opt = document.createElement("option");
+        opt.value = t;
+        opt.textContent = t;
+        themeSelect.appendChild(opt);
+      });
+    }
+
+    // Clear the "new" input when selecting existing, and vice versa
+    themeSelect.addEventListener("change", () => { if (themeSelect.value) themeNew.value = ""; });
+    themeNew.addEventListener("input", () => { if (themeNew.value.trim()) themeSelect.value = ""; });
+
+    // ════════════════════════════════════
+    //  FORM SUBMIT (ADD / UPDATE)
+    // ════════════════════════════════════
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const quote = quoteInput.value.trim();
+      const author = authorInput.value.trim();
+      const source = sourceInput.value.trim();
+      const theme = themeNew.value.trim() || themeSelect.value;
+      const explanation = explanationInput.value.trim();
+      const moods = [...moodGrid.querySelectorAll("input:checked")].map(cb => cb.value);
+
+      if (!quote || !author || !theme) {
+        toast("Please fill in at least the quote, author, and theme.");
+        return;
+      }
+
+      const card = { theme, moods, quote, author, source, explanation };
+
+      if (editingIndex >= 0) {
+        quotes[editingIndex] = card;
+        toast("Card updated.");
+      } else {
+        quotes.push(card);
+        toast("Card added.");
+      }
+
+      markUnsaved();
+      resetForm();
+      renderList();
+      rebuildThemeSelect();
+    });
+
+    // ════════════════════════════════════
+    //  EDIT MODE
+    // ════════════════════════════════════
+    function startEdit(idx) {
+      const q = quotes[idx];
+      editingIndex = idx;
+
+      quoteInput.value = q.quote;
+      authorInput.value = q.author;
+      sourceInput.value = q.source || "";
+      explanationInput.value = q.explanation || "";
+
+      // Theme
+      themeNew.value = "";
+      const existingOption = [...themeSelect.options].find(o => o.value === q.theme);
+      if (existingOption) {
+        themeSelect.value = q.theme;
+      } else {
+        themeSelect.value = "";
+        themeNew.value = q.theme;
+      }
+
+      // Moods
+      moodGrid.querySelectorAll("input").forEach(cb => {
+        cb.checked = q.moods.includes(cb.value);
+      });
+
+      formModeLabel.textContent = "Editing card";
+      formHeading.textContent = "Edit card";
+      submitBtn.textContent = "Update card";
+      cancelBtn.style.display = "block";
+
+      // Scroll form into view on mobile
+      document.querySelector(".panel-right").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    cancelBtn.addEventListener("click", resetForm);
+
+    function resetForm() {
+      editingIndex = -1;
+      form.reset();
+      moodGrid.querySelectorAll("input").forEach(cb => cb.checked = false);
+      themeSelect.value = "";
+      themeNew.value = "";
+      formModeLabel.textContent = "Add new card";
+      formHeading.textContent = "New card";
+      submitBtn.textContent = "Add card";
+      cancelBtn.style.display = "none";
+    }
+
+    // ════════════════════════════════════
+    //  DELETE
+    // ════════════════════════════════════
+    function deleteCard(idx) {
+      const q = quotes[idx];
+      if (!confirm(`Delete card?\n\n\u201C${q.quote.slice(0, 60)}...\u201D`)) return;
+      quotes.splice(idx, 1);
+      if (editingIndex === idx) resetForm();
+      else if (editingIndex > idx) editingIndex--;
+      markUnsaved();
+      renderList();
+      rebuildThemeSelect();
+      toast("Card deleted.");
+    }
+
+    // ════════════════════════════════════
+    //  DOWNLOAD
+    // ════════════════════════════════════
+    downloadBtn.addEventListener("click", () => {
+      const json = JSON.stringify(quotes, null, 2) + "\n";
+      const blob = new Blob([json], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "quotes.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      hasUnsavedChanges = false;
+      unsavedDot.classList.remove("visible");
+      toast("quotes.json downloaded. Replace the old file in your folder.");
+    });
+
+    // ════════════════════════════════════
+    //  UNSAVED STATE
+    // ════════════════════════════════════
+    function markUnsaved() {
+      hasUnsavedChanges = true;
+      unsavedDot.classList.add("visible");
+    }
+
+    window.addEventListener("beforeunload", (e) => {
+      if (hasUnsavedChanges) {
+        e.preventDefault();
+        e.returnValue = "";
+      }
+    });
+
+    // ════════════════════════════════════
+    //  TOAST
+    // ════════════════════════════════════
+    let toastTimer;
+    function toast(msg) {
+      clearTimeout(toastTimer);
+      toastEl.textContent = msg;
+      toastEl.classList.add("show");
+      toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2800);
+    }
+  </script>
+</body>
+</html>

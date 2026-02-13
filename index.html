@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Stoic Way – Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #050507;
+      --bg-elevated: #111111;
+      --bg-elevated-soft: #151515;
+      --border-subtle: #232323;
+      --accent: #f4c15d;
+      --accent-soft: #f8dd9b;
+      --accent-2: #4ad1c5;
+      --accent-3: #f06c5f;
+      --text: #f5f5f5;
+      --muted: #9f9f9f;
+      --card-radius: 18px;
+      --transition-fast: 0.2s ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #141414 0, #050507 55%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 20px 16px 60px;
+    }
+
+    /* HEADER */
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(
+          to bottom,
+          rgba(5, 5, 7, 0.92),
+          rgba(5, 5, 7, 0.85),
+          transparent
+        );
+    }
+
+    .logo {
+      font-family: "Times New Roman", "Georgia", serif;
+      font-size: 30px;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      margin-left: 12px;
+    }
+
+    .logo span {
+      display: inline-block;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    nav a {
+      color: var(--muted);
+      padding-bottom: 4px;
+      border-bottom: 1px solid transparent;
+      cursor: pointer;
+      transition: color var(--transition-fast),
+        border-bottom-color var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    nav a:hover {
+      color: var(--accent-soft);
+      border-bottom-color: var(--accent-soft);
+      transform: translateY(-1px);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      padding: 6px 14px;
+      font-size: 13px;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background var(--transition-fast),
+        border-color var(--transition-fast), transform var(--transition-fast),
+        box-shadow var(--transition-fast), color var(--transition-fast);
+    }
+
+    .btn-ghost {
+      color: var(--muted);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent-soft);
+      background: rgba(244, 193, 93, 0.05);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #f4c15d, #f06c5f);
+      border-color: transparent;
+      color: #050507;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.45);
+      transform: translateY(-1px);
+    }
+
+    /* MAIN GRID */
+
+    main {
+      margin-top: 4px;
+    }
+
+    .grid-main {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.45fr) minmax(
+          0,
+          0.85fr
+        );
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .card {
+      border-radius: var(--card-radius);
+      background: radial-gradient(circle at top left, #222 0, #121212 38%);
+      border: 1px solid var(--border-subtle);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: transform var(--transition-fast),
+        box-shadow var(--transition-fast), border-color var(--transition-fast),
+        background var(--transition-fast);
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 38px rgba(0, 0, 0, 0.65);
+      border-color: #2b2b2b;
+      background: radial-gradient(circle at top, #262626 0, #151515 45%);
+    }
+
+    .card-tag {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      padding: 4px 10px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.75);
+      color: var(--accent-soft);
+      border: 1px solid rgba(250, 250, 250, 0.2);
+    }
+
+    .card-media {
+      height: 170px;
+      background: radial-gradient(
+        circle at top left,
+        #f4c15d 0,
+        #f06c5f 32%,
+        #4ad1c5 75%,
+        #050507 100%
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-media span.big-symbol {
+      font-size: 64px;
+      filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.75));
+      opacity: 0.9;
+    }
+
+    .card-media::after {
+      content: "";
+      position: absolute;
+      inset: 6%;
+      border-radius: 999px;
+      border: 1px dashed rgba(5, 5, 7, 0.4);
+      opacity: 0.75;
+    }
+
+    .card-body {
+      padding: 16px 18px 18px;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .card-meta span.name {
+      color: #e5e5e5;
+      font-weight: 500;
+    }
+
+    .card-meta .pill {
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      font-size: 11px;
+    }
+
+    /* LEFT COLUMN CARD TALL */
+
+    .card-tall {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .card-tall .card-media {
+      height: 130px;
+      background: radial-gradient(circle at top left, #4ad1c5 0, #050507 65%);
+      justify-content: flex-start;
+    }
+
+    .card-tall-figure {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .card-tall-caption {
+      font-size: 13px;
+      max-width: 220px;
+      color: #050507;
+    }
+
+    .card-tall .card-body {
+      flex: 1;
+    }
+
+    /* RIGHT COLUMN – RECENT LIST */
+
+    .recent {
+      background: linear-gradient(
+        145deg,
+        #111111 0,
+        #050507 58%,
+        #1f1111 100%
+      );
+      border-radius: var(--card-radius);
+      border: 1px solid var(--border-subtle);
+      padding: 16px 16px 10px;
+    }
+
+    .recent-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .recent-header h3 {
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .recent-header a {
+      font-size: 12px;
+      color: var(--accent-soft);
+      cursor: pointer;
+    }
+
+    .recent-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .recent-item {
+      padding: 10px 8px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .recent-item:hover {
+      background: rgba(244, 193, 93, 0.07);
+      transform: translateX(2px);
+    }
+
+    .recent-item-title {
+      font-size: 13px;
+      line-height: 1.4;
+      margin-bottom: 3px;
+    }
+
+    .recent-item-meta {
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* BUILT BY SECTION */
+
+    .section {
+      margin-top: 40px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .section-subtitle {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .section-header a {
+      font-size: 12px;
+      color: var(--accent-soft);
+      cursor: pointer;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .product-card {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      background: #101010;
+      cursor: pointer;
+      transition: transform var(--transition-fast),
+        box-shadow var(--transition-fast), border-color var(--transition-fast),
+        background var(--transition-fast);
+    }
+
+    .product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
+      border-color: #2b2b2b;
+      background: #161616;
+    }
+
+    .product-banner {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .banner-monologue {
+      background: radial-gradient(circle at left, #111 0, #050507 80%);
+    }
+
+    .banner-spark {
+      background: radial-gradient(circle at top, #4ad1c5 0, #050507 80%);
+    }
+
+    .banner-path {
+      background: radial-gradient(circle at top, #f06c5f 0, #050507 80%);
+    }
+
+    .banner-journal {
+      background: radial-gradient(circle at top, #f4c15d 0, #050507 80%);
+    }
+
+    .product-body {
+      padding: 12px 13px 14px;
+    }
+
+    .product-name {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .product-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .product-link {
+      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--accent-soft);
+    }
+
+    .product-link span.icon {
+      font-size: 14px;
+      transform: translateY(1px);
+    }
+
+    /* SECTIONS ANCHOR TARGETS */
+
+    section {
+      scroll-margin-top: 80px;
+    }
+
+    /* MODAL */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal {
+      max-width: 540px;
+      width: 92%;
+      background: #101010;
+      border-radius: 18px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 16px 42px rgba(0, 0, 0, 0.8);
+      padding: 18px 18px 16px;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      right: 14px;
+      top: 12px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .modal-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+      margin-bottom: 6px;
+    }
+
+    .modal-title {
+      font-size: 19px;
+      margin-bottom: 8px;
+    }
+
+    .modal-meta {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .modal-body {
+      font-size: 14px;
+      line-height: 1.65;
+      color: #e3e3e3;
+    }
+
+    /* SUBSCRIBE MODAL EXTRA */
+
+    .modal-subscribe .modal-body {
+      margin-top: 4px;
+    }
+
+    .modal-subscribe form {
+      margin-top: 12px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .modal-subscribe input[type="email"] {
+      flex: 1;
+      min-width: 200px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: #050507;
+      padding: 7px 11px;
+      color: var(--text);
+      font-size: 13px;
+      outline: none;
+      transition: border-color var(--transition-fast),
+        box-shadow var(--transition-fast);
+    }
+
+    .modal-subscribe input[type="email"]:focus {
+      border-color: var(--accent-soft);
+      box-shadow: 0 0 0 1px rgba(244, 193, 93, 0.4);
+    }
+
+    .small-note {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 1000px) {
+      .grid-main {
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.6fr);
+        grid-template-rows: auto auto;
+      }
+
+      .grid-main > :nth-child(3) {
+        grid-column: 1 / -1;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .logo {
+        margin-left: 0;
+      }
+
+      .header-actions {
+        margin-left: auto;
+      }
+
+      nav {
+        font-size: 12px;
+        gap: 14px;
+      }
+
+      .grid-main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .product-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="logo">
+        <span>STOIC</span> <span>WAY</span>
+      </div>
+      <nav>
+        <a data-scroll="#quotes">Quotes</a>
+        <a data-scroll="#essays">Essays</a>
+        <a data-scroll="#tools">Tools</a>
+        <a data-scroll="#about">About</a>
+      </nav>
+      <div class="header-actions">
+        <button class="btn btn-ghost" id="btn-sign-in">Sign in</button>
+        <button class="btn btn-primary" id="btn-subscribe">
+          Subscribe
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <!-- MAIN GRID -->
+      <div class="grid-main" id="quotes">
+        <!-- LEFT CARD -->
+        <article
+          class="card card-tall"
+          data-modal='{
+            "eyebrow": "Daily Discipline",
+            "title": "How Playing the Inner Game Makes You Wiser",
+            "meta": "Oct 15 · by Marcus Lab",
+            "body": "The Stoics saw life as a game of attention. You cannot control the dice throw, but you can control the hand you play. When you treat every difficulty as training, you turn misfortune into fuel. This piece explores three exercises from Epictetus for using frustration, delay, and insult as deliberate practice."
+          }'
+        >
+          <div class="card-tag">Practice</div>
+          <div class="card-media">
+            <div>
+              <div class="card-tall-figure">🎲</div>
+              <div class="card-tall-caption">
+                Turn every roll of fate into training for your character.
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="eyebrow">Oct 15 · In Attention</div>
+            <h2 class="card-title">
+              How Playing the Inner Game Makes You Stronger
+            </h2>
+            <p class="card-desc">
+              A guided tour through Stoic exercises that treat setbacks like
+              levels in a game instead of personal failures.
+            </p>
+            <div class="card-meta">
+              <span class="name">By Marcus Lab</span>
+              <span class="pill">8 min read</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- CENTER HERO -->
+        <article
+          class="card"
+          data-modal='{
+            "eyebrow": "Featured Collection",
+            "title": "We Just Launched the Great Library of Stoic Quotes",
+            "meta": "Today · The Stoic Way",
+            "body": "The Great Library is a living archive of curated Stoic quotations from Marcus Aurelius, Seneca, Epictetus, and their modern interpreters. Every line is tagged by theme—courage, anger, love, status, mortality—so you can find the right thought for the moment you are in. The goal is simple: one place on the internet where the signal has already been separated from the noise. No fluff. No platitudes. Just the sentences that have survived two thousand years of real-world testing."
+          }'
+        >
+          <div class="card-tag">New</div>
+          <div class="card-media">
+            <span class="big-symbol">⚛︎</span>
+          </div>
+          <div class="card-body">
+            <div class="eyebrow">Oct 15 · On The Stoic Way</div>
+            <h1 class="card-title">
+              Our New Library Collected 1,000+ Stoic Quotes to Train Your
+              Judgment
+            </h1>
+            <p class="card-desc">
+              Browse by theme, author, or emotion and build your own notebook of
+              lines to remember when things get hard.
+            </p>
+            <div class="card-meta">
+              <span class="name">The Stoic Way Editors</span>
+              <span class="pill">Explore the Library →</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- RIGHT COLUMN: RECENT ESSAYS -->
+        <aside class="recent" id="essays">
+          <div class="recent-header">
+            <h3>Recent meditations</h3>
+            <a data-scroll="#essays">View all</a>
+          </div>
+          <div class="recent-list">
+            <div
+              class="recent-item"
+              data-modal='{
+                "eyebrow": "Naming",
+                "title": "A Founder\'s Guide to Finding a Stoic Name",
+                "meta": "By Namecraft Studio · 6 min read",
+                "body": "Picking a name for your project is not about sounding ancient and serious. It is about compressing the promise you make to your reader. We walk through four patterns based on Stoic vocabulary—logos, prohairesis, hodos, pneuma—and show how to make them feel alive instead of academic."
+              }'
+            >
+              <div class="recent-item-title">
+                A Founder’s Guide to Finding a Stoic Name
+              </div>
+              <div class="recent-item-meta">
+                <span>By Namecraft Studio</span><span>6 min read</span>
+              </div>
+            </div>
+
+            <div
+              class="recent-item"
+              data-modal='{
+                "eyebrow": "Technology",
+                "title": "Robots Are Coming (So Are Virtues)",
+                "meta": "By Clean Code, Clean Mind · 7 min read",
+                "body": "Automation will take tasks, not your capacity for character. The question is not whether AI will make you obsolete, but whether you will allow convenience to make you soft. We sketch a Stoic stance towards technology that keeps you both effective and human."
+              }'
+            >
+              <div class="recent-item-title">
+                Robots Are Coming (So Are Virtues)
+              </div>
+              <div class="recent-item-meta">
+                <span>By Clean Code, Clean Mind</span><span>7 min read</span>
+              </div>
+            </div>
+
+            <div
+              class="recent-item"
+              data-modal='{
+                "eyebrow": "Perception",
+                "title": "Seeing a Conversation Like a Philosopher",
+                "meta": "By Dialogue Lab · 5 min read",
+                "body": "A disagreement is not a threat but a laboratory. When you slow down enough to see your impressions forming in real time, each conversation becomes a chance to practise humility, clarity, and courage. Here is a checklist drawn from Epictetus for your next hard talk."
+              }'
+            >
+              <div class="recent-item-title">
+                Seeing a Conversation Like a Philosopher
+              </div>
+              <div class="recent-item-meta">
+                <span>By Dialogue Lab</span><span>5 min read</span>
+              </div>
+            </div>
+
+            <div
+              class="recent-item"
+              data-modal='{
+                "eyebrow": "Practice",
+                "title": "Using One Line a Day to Rewrite Your Life",
+                "meta": "By The Stoic Way · 4 min read",
+                "body": "Most people read a quote, nod, and scroll. Stoics did something different: they copied the line by hand, personalised it, and tried to live it for a day. This micro-practice turns reading into training. We show you how to build a one-line-a-day system in under ten minutes."
+              }'
+            >
+              <div class="recent-item-title">
+                Using One Line a Day to Rewrite Your Life
+              </div>
+              <div class="recent-item-meta">
+                <span>By The Stoic Way</span><span>4 min read</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- BUILT BY SECTION -->
+      <section class="section" id="tools">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Built for your practice</div>
+            <div class="section-subtitle">
+              Try our experimental Stoic tools.
+            </div>
+          </div>
+          <a href="javascript:void(0)" id="see-all-tools">See all tools →</a>
+        </div>
+
+        <div class="product-grid">
+          <article
+            class="product-card"
+            data-modal='{
+              "eyebrow": "Tool",
+              "title": "Monologue",
+              "meta": "Voice-to-notebook for Stoic journaling",
+              "body": "Dictate your evening reflection while you walk home. Monologue automatically timestamps, tags, and stores your voice notes next to relevant Stoic passages, so you can see which lines you are actually living and where you keep getting stuck."
+            }'
+          >
+            <div class="product-banner banner-monologue">
+              MONOLOGUE
+            </div>
+            <div class="product-body">
+              <div class="product-name">Monologue</div>
+              <div class="product-desc">
+                Effortless voice journaling so you can capture what fate throws
+                at you in real time.
+              </div>
+              <div class="product-link">
+                Try it <span class="icon">↗</span>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="product-card"
+            data-modal='{
+              "eyebrow": "Tool",
+              "title": "Spark",
+              "meta": "Quote discovery by mood and moment",
+              "body": "Spark helps you find a single Stoic line for whatever you are facing: a hard conversation, a big exam, a breakup. Choose your situation, and it returns one sentence plus a short note on how to use it today."
+            }'
+          >
+            <div class="product-banner banner-spark">
+              SPARK
+            </div>
+            <div class="product-body">
+              <div class="product-name">Spark</div>
+              <div class="product-desc">
+                Automatic quote surfacing so you can always find the sentence
+                you need most.
+              </div>
+              <div class="product-link">
+                Light a spark <span class="icon">↗</span>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="product-card"
+            data-modal='{
+              "eyebrow": "Tool",
+              "title": "Path",
+              "meta": "Design your personal Stoic training plan",
+              "body": "Path turns vague intentions into a simple weekly plan. Pick the virtues you want to strengthen, and it suggests tiny, concrete reps—questions to answer, conversations to have, discomforts to lean into."
+            }'
+          >
+            <div class="product-banner banner-path">
+              PATH
+            </div>
+            <div class="product-body">
+              <div class="product-name">Path</div>
+              <div class="product-desc">
+                A lightweight planner that turns Stoic ideas into small,
+                repeatable actions.
+              </div>
+              <div class="product-link">
+                Walk the path <span class="icon">↗</span>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="product-card"
+            data-modal='{
+              "eyebrow": "Tool",
+              "title": "Journal",
+              "meta": "Morning and evening prompts",
+              "body": "Journal gives you a clean page with two questions: \u2018What will I face?\u2019 in the morning and \u2018How did I do?\u2019 at night. It keeps your streaks, but the real win is noticing how quickly your reactions change when you practice reflection every day."
+            }'
+          >
+            <div class="product-banner banner-journal">
+              JOURNAL
+            </div>
+            <div class="product-body">
+              <div class="product-name">Journal</div>
+              <div class="product-desc">
+                Gentle prompts built around Marcus Aurelius’s morning and
+                evening routines.
+              </div>
+              <div class="product-link">
+                Start journaling <span class="icon">↗</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ABOUT / FOOTER -->
+
+      <section class="section" id="about">
+        <div class="section-header">
+          <div>
+            <div class="section-title">About the stoic way</div>
+            <div class="section-subtitle">
+              A quiet corner of the internet for people who want to train their
+              character.
+            </div>
+          </div>
+        </div>
+        <p style="font-size: 13px; color: var(--muted); max-width: 640px;">
+          The Stoic Way is a living library of quotes, essays, and tools built
+          around one idea: you cannot always choose your circumstances, but you
+          can train how you meet them. We start with a repository of carefully
+          curated Stoic lines and will grow into a home for long-form writing,
+          practical guides, and experiments in character.
+        </p>
+      </section>
+    </main>
+  </div>
+
+  <!-- MODAL (generic for articles/tools) -->
+  <div class="modal-backdrop" id="modal-backdrop">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modal-close" aria-label="Close">
+        ×
+      </button>
+      <div class="modal-eyebrow" id="modal-eyebrow"></div>
+      <h2 class="modal-title" id="modal-title"></h2>
+      <div class="modal-meta" id="modal-meta"></div>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- SUBSCRIBE MODAL -->
+  <div class="modal-backdrop" id="subscribe-backdrop">
+    <div class="modal modal-subscribe">
+      <button class="modal-close" id="subscribe-close" aria-label="Close">
+        ×
+      </button>
+      <div class="modal-eyebrow">Newsletter</div>
+      <h2 class="modal-title">Subscribe to The Stoic Way</h2>
+      <div class="modal-meta">One email, a few lines worth keeping.</div>
+      <div class="modal-body">
+        <p>
+          Get a short selection of quotes and reflections each week. No spam,
+          no hacks—just ideas you can actually use.
+        </p>
+        <form
+          onsubmit="event.preventDefault(); alert('This is a demo. Wire this up to your backend or email provider.');"
+        >
+          <input
+            type="email"
+            required
+            placeholder="you@example.com"
+            aria-label="Email address"
+          />
+          <button type="submit" class="btn btn-primary">Join free</button>
+        </form>
+        <div class="small-note">
+          You can unsubscribe with one click, any time.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Smooth scroll for nav & section links
+    document.querySelectorAll("[data-scroll]").forEach((link) => {
+      link.addEventListener("click", () => {
+        const target = document.querySelector(link.getAttribute("data-scroll"));
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+    });
+
+    // Generic modal for cards and recent items/tools
+    const modalBackdrop = document.getElementById("modal-backdrop");
+    const modalEyebrow = document.getElementById("modal-eyebrow");
+    const modalTitle = document.getElementById("modal-title");
+    const modalMeta = document.getElementById("modal-meta");
+    const modalBody = document.getElementById("modal-body");
+    const modalClose = document.getElementById("modal-close");
+
+    function openContentModal(data) {
+      modalEyebrow.textContent = data.eyebrow || "";
+      modalTitle.textContent = data.title || "";
+      modalMeta.textContent = data.meta || "";
+      modalBody.textContent = data.body || "";
+      modalBackdrop.classList.add("show");
+    }
+
+    function parseModalData(el) {
+      const raw = el.getAttribute("data-modal");
+      if (!raw) return null;
+      try {
+        return JSON.parse(raw);
+      } catch (e) {
+        console.error("Invalid data-modal JSON", e);
+        return null;
+      }
+    }
+
+    document
+      .querySelectorAll("[data-modal]")
+      .forEach((clickable) =>
+        clickable.addEventListener("click", () => {
+          const data = parseModalData(clickable);
+          if (data) openContentModal(data);
+        })
+      );
+
+    modalClose.addEventListener("click", () =>
+      modalBackdrop.classList.remove("show")
+    );
+    modalBackdrop.addEventListener("click", (e) => {
+      if (e.target === modalBackdrop) {
+        modalBackdrop.classList.remove("show");
+      }
+    });
+
+    // Subscribe modal
+    const subscribeBackdrop = document.getElementById("subscribe-backdrop");
+    const subscribeClose = document.getElementById("subscribe-close");
+    const subscribeBtn = document.getElementById("btn-subscribe");
+    const signInBtn = document.getElementById("btn-sign-in");
+
+    subscribeBtn.addEventListener("click", () =>
+      subscribeBackdrop.classList.add("show")
+    );
+    signInBtn.addEventListener("click", () =>
+      alert("Sign-in flow not wired yet – connect this to your auth system.")
+    );
+    subscribeClose.addEventListener("click", () =>
+      subscribeBackdrop.classList.remove("show")
+    );
+    subscribeBackdrop.addEventListener("click", (e) => {
+      if (e.target === subscribeBackdrop) {
+        subscribeBackdrop.classList.remove("show");
+      }
+    });
+
+    // “See all tools” interaction
+    document
+      .getElementById("see-all-tools")
+      .addEventListener("click", () =>
+        alert("In a full build, this would take you to a tools directory.")
+      );
+  </script>
+</body>
+</html>
