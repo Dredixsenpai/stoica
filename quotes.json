@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "theme": "On Action",
+    "moods": ["stuck", "procrastinating"],
+    "quote": "Waste no more time arguing what a good man should be. Be one.",
+    "author": "Marcus Aurelius",
+    "source": "Meditations, 10.16",
+    "explanation": "Marcus reminds us that philosophy is not theoretical. Virtue is practiced through action, not endless discussion."
+  },
+  {
+    "id": 2,
+    "theme": "On Perspective",
+    "moods": ["anxious", "overwhelmed"],
+    "quote": "We suffer more often in imagination than in reality.",
+    "author": "Seneca",
+    "source": "Letters from a Stoic, Letter 13",
+    "explanation": "Much of our stress comes from anticipation rather than events themselves."
+  },
+  {
+    "id": 3,
+    "theme": "On Discipline",
+    "moods": ["distracted", "unmotivated"],
+    "quote": "No man is free who is not master of himself.",
+    "author": "Epictetus",
+    "source": "Discourses, Book 2",
+    "explanation": "True freedom in Stoicism is self-mastery. Discipline creates autonomy."
+  },
+  {
+    "id": 4,
+    "theme": "On Adversity",
+    "moods": ["frustrated", "setback"],
+    "quote": "The impediment to action advances action. What stands in the way becomes the way.",
+    "author": "Marcus Aurelius",
+    "source": "Meditations, 5.20",
+    "explanation": "Obstacles are not interruptions — they are the path itself."
+  },
+  {
+    "id": 5,
+    "theme": "On Time",
+    "moods": ["unfocused", "wasting time"],
+    "quote": "It is not that we have a short time to live, but that we waste much of it.",
+    "author": "Seneca",
+    "source": "On the Shortness of Life",
+    "explanation": "Life feels short when attention is fragmented. Intentional living stretches time."
+  },
+  {
+    "id": 6,
+    "theme": "On Character",
+    "moods": ["self-doubt", "uncertain"],
+    "quote": "First say to yourself what you would be; and then do what you have to do.",
+    "author": "Epictetus",
+    "source": "Discourses, Book 3",
+    "explanation": "Identity precedes action. Define your character, then act accordingly."
+  },
+  {
+    "id": 7,
+    "theme": "On Resilience",
+    "moods": ["tired", "burned out"],
+    "quote": "Difficulties strengthen the mind, as labor does the body.",
+    "author": "Seneca",
+    "source": "Letters from a Stoic, Letter 67",
+    "explanation": "Struggle is resistance training for the mind."
+  },
+  {
+    "id": 8,
+    "theme": "On Control",
+    "moods": ["angry", "reactive"],
+    "quote": "It is not things themselves that disturb us, but our judgments about them.",
+    "author": "Epictetus",
+    "source": "Enchiridion, 5",
+    "explanation": "Events are neutral. Our interpretation gives them emotional force."
+  }
+]
