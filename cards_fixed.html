@@ -345,8 +345,8 @@
       top: 0; left: 0;
       width: 100%;
       cursor: default;
-      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-                  opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+                  opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1);
       will-change: transform, opacity;
     }
 
@@ -356,7 +356,7 @@
     .deck-card[data-pos="hidden"] { z-index: 1; transform: translateY(44px) scale(0.91); opacity: 0; pointer-events: none; }
 
     .deck-card.swipe-left {
-      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
       transform: translateX(-130%) rotate(-6deg) !important;
       opacity: 1 !important;
       z-index: 11 !important;
@@ -366,7 +366,7 @@
       position: relative;
       width: 100%;
       transform-style: preserve-3d;
-      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .card-flipper.face-down {
@@ -480,14 +480,24 @@
       max-height: 0; overflow: hidden; opacity: 0;
       transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
     }
-    .card-explanation.open { max-height: 300px; opacity: 1; }
+    .card-explanation.open { max-height: 180px; opacity: 1; overflow-y: auto; }
+    .card-explanation.open::-webkit-scrollbar { width: 5px; }
+    .card-explanation.open::-webkit-scrollbar-track { background: transparent; }
+    .card-explanation.open::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+    .card-explanation.open::-webkit-scrollbar-thumb:hover { background: #555; }
 
-    .card-explanation-inner { padding-top: 16px; font-size: 14px; line-height: 1.75; color: #c8c8c8; }
+    .card-explanation-inner { padding-top: 16px; padding-right: 8px; font-size: 14px; line-height: 1.75; color: #c8c8c8; }
     .card-explanation-inner strong { color: var(--accent); font-weight: 500; }
 
     /* ───── NAVIGATION ───── */
 
-    .deck-nav { display: flex; align-items: center; gap: 20px; margin-top: 40px; }
+    .deck-stage-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .deck-nav { display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 40px; }
 
     .nav-arrow {
       width: 48px; height: 48px; border-radius: 50%;
@@ -501,6 +511,16 @@
     }
     .nav-arrow:hover { background: rgba(30,30,30,0.8); border-color: #3a3a3a; color: var(--accent-soft); transform: scale(1.06); }
     .nav-arrow:active { transform: scale(0.96); }
+
+    .nav-arrow-side {
+      flex-shrink: 0;
+      z-index: 12;
+    }
+
+    @media (max-width: 700px) {
+      .deck-stage-wrapper { gap: 8px; }
+      .nav-arrow-side { width: 36px; height: 36px; font-size: 14px; }
+    }
 
     .nav-dots { display: flex; gap: 8px; }
     .nav-dot { width: 8px; height: 8px; border-radius: 50%; background: #2a2a2a; cursor: pointer; transition: background 0.3s ease, transform 0.3s ease; }
@@ -627,7 +647,11 @@
       <div class="deck-counter"><span id="current-num">1</span> of <span id="total-num">12</span></div>
     </div>
 
-    <div class="deck-stage" id="deck-stage"></div>
+    <div class="deck-stage-wrapper">
+      <button class="nav-arrow nav-arrow-side nav-arrow-prev" id="nav-prev" aria-label="Previous card">&larr;</button>
+      <div class="deck-stage" id="deck-stage"></div>
+      <button class="nav-arrow nav-arrow-side nav-arrow-next" id="nav-next" aria-label="Next card">&rarr;</button>
+    </div>
     <div class="deck-empty" id="deck-empty">
       <div class="deck-empty-icon">&#9775;</div>
       <div class="deck-empty-text">No cards match that combination.</div>
@@ -635,9 +659,7 @@
     </div>
 
     <div class="deck-nav" id="deck-nav">
-      <button class="nav-arrow" id="nav-prev" aria-label="Previous card">&larr;</button>
       <div class="nav-dots" id="nav-dots"></div>
-      <button class="nav-arrow" id="nav-next" aria-label="Next card">&rarr;</button>
     </div>
 
     <div class="deck-hint" id="deck-hint">
@@ -1025,8 +1047,8 @@
         requestAnimationFrame(() => {
           incomingFlip.classList.remove("face-down");
         });
-        setTimeout(() => { isAnimating = false; }, 700);
-      }, 400);
+        setTimeout(() => { isAnimating = false; }, 380);
+      }, 250);
     }
 
     function goPrev() {
@@ -1042,8 +1064,8 @@
         currentIndex--;
         returningOuter.classList.remove("swipe-left");
         positionStack();
-        setTimeout(() => { isAnimating = false; }, 500);
-      }, 350);
+        setTimeout(() => { isAnimating = false; }, 320);
+      }, 220);
     }
 
     function goTo(idx) {
@@ -1061,8 +1083,8 @@
           requestAnimationFrame(() => {
             flipEls[idx].classList.remove("face-down");
           });
-          setTimeout(() => { isAnimating = false; }, 700);
-        }, 420);
+          setTimeout(() => { isAnimating = false; }, 380);
+        }, 280);
       } else {
         isAnimating = true;
         for (let i = currentIndex; i > idx; i--) {
@@ -1074,8 +1096,8 @@
         setTimeout(() => {
           currentIndex = idx;
           positionStack();
-          setTimeout(() => { isAnimating = false; }, 500);
-        }, 200);
+          setTimeout(() => { isAnimating = false; }, 320);
+        }, 150);
       }
     }
 
