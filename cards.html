@@ -334,7 +334,8 @@
 
     .deck-stage {
       position: relative;
-      width: 100%;
+      flex: 1 1 0%;
+      min-width: 0;
       max-width: 620px;
       min-height: 420px;
       perspective: 1200px;
@@ -576,7 +577,7 @@
       .filter-row { gap: 8px; }
       .filter-pill { padding: 7px 14px; font-size: 12px; }
       .deck-section { padding: 60px 16px 100px; }
-      .deck-stage { max-width: 100%; height: 480px; }
+      .deck-stage { max-width: 100%; }
       .card-front { padding: 28px 22px 24px; }
       .card-quote { font-size: 18px; }
       .card-author { font-size: 16px; }
@@ -587,7 +588,7 @@
     }
 
     @media (max-width: 420px) {
-      .deck-stage { height: 500px; }
+      .deck-stage { min-height: 380px; }
       .card-quote { font-size: 17px; line-height: 1.6; }
     }
   </style>
