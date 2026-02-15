@@ -336,8 +336,9 @@
       position: relative;
       width: 100%;
       max-width: 620px;
-      height: 520px;
+      min-height: 420px;
       perspective: 1200px;
+      transition: height 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .deck-card {
@@ -385,6 +386,7 @@
       position: relative;
       background: radial-gradient(ellipse at top left, #1a1a1c 0%, #0e0e10 55%);
       padding: 36px 32px 28px;
+      overflow: hidden;
     }
 
     .card-back {
@@ -480,7 +482,7 @@
       max-height: 0; overflow: hidden; opacity: 0;
       transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
     }
-    .card-explanation.open { max-height: 180px; opacity: 1; overflow-y: auto; }
+    .card-explanation.open { max-height: 260px; opacity: 1; overflow-y: auto; }
     .card-explanation.open::-webkit-scrollbar { width: 5px; }
     .card-explanation.open::-webkit-scrollbar-track { background: transparent; }
     .card-explanation.open::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
@@ -968,6 +970,18 @@
     }
 
     // ════════════════════════════════════
+    //  RESIZE STAGE TO FIT ACTIVE CARD
+    // ════════════════════════════════════
+    function updateStageHeight() {
+      const active = cardEls[currentIndex];
+      if (!active) return;
+      const front = active.querySelector(".card-front");
+      if (!front) return;
+      const h = front.scrollHeight + 50; // extra room for stacked cards behind
+      stage.style.height = Math.max(420, h) + "px";
+    }
+
+    // ════════════════════════════════════
     //  POSITION THE STACK
     // ════════════════════════════════════
     function positionStack() {
@@ -987,6 +1001,8 @@
       dotsWrap.querySelectorAll(".nav-dot").forEach((d, i) =>
         d.classList.toggle("active", i === currentIndex)
       );
+
+      updateStageHeight();
     }
 
     // ════════════════════════════════════
@@ -1073,6 +1089,11 @@
           panel.classList.toggle("open", !isOpen);
           btn.classList.toggle("open", !isOpen);
           btn.firstChild.textContent = isOpen ? "What does this mean? " : "Close explanation ";
+          // Wait for the CSS transition to start, then update stage height
+          requestAnimationFrame(() => {
+            setTimeout(updateStageHeight, 50);
+            setTimeout(updateStageHeight, 400); // after transition completes
+          });
         });
       });
     }
