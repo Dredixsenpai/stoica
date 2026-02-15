@@ -64,61 +64,142 @@
     nav a { color: var(--muted); padding-bottom: 3px; border-bottom: 1px solid transparent; transition: color var(--transition-fast), border-color var(--transition-fast); }
     nav a:hover { color: var(--accent-soft); border-bottom-color: var(--accent-soft); }
 
-    /* ───── HERO ───── */
-
-    .hero {
-      position: relative;
-      width: 100%;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background:
-        linear-gradient(180deg, rgba(0,0,0,0.15) 0%, #050507 78%),
-        url("https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1900&q=80") center/cover no-repeat;
-    }
-
-    .hero-inner { max-width: 640px; padding: 140px 24px 100px; text-align: center; }
-    .hero-kicker { font-size: 12px; text-transform: uppercase; letter-spacing: 0.22em; color: var(--muted); margin-bottom: 18px; }
-    .hero-title { font-size: clamp(32px, 5.5vw, 52px); font-weight: 700; line-height: 1.1; margin-bottom: 18px; }
-    .hero-title .em { color: var(--accent-3); }
-    .hero-subtitle { font-size: 15px; color: var(--muted); line-height: 1.65; max-width: 480px; margin: 0 auto 36px; }
-
-    .cta-button {
-      border: none; border-radius: 999px; padding: 14px 32px;
-      font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.18em;
-      background: linear-gradient(135deg, var(--accent), var(--accent-3));
-      color: #050507; cursor: pointer;
-      box-shadow: 0 14px 36px rgba(0,0,0,0.7);
-      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-    }
-    .cta-button:hover { transform: translateY(-2px); box-shadow: 0 20px 48px rgba(0,0,0,0.85); filter: brightness(1.06); }
-    .cta-hint { margin-top: 12px; font-size: 11px; color: var(--muted); }
-
-    /* ───── FILTER SECTION ───── */
+    /* ───── FILTER SECTION (primary landing) ───── */
 
     .filter-section {
       position: relative;
       width: 100%;
-      padding: 80px 24px 60px;
+      min-height: 100vh;
+      padding: 0 24px 60px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      background: linear-gradient(180deg, #050507 0%, #0a0a0d 50%, #050507 100%);
+      justify-content: center;
+      background: radial-gradient(ellipse at 50% 30%, #0f0f13 0%, #050507 65%);
     }
 
     .filter-heading {
-      font-size: clamp(22px, 3.5vw, 32px);
-      font-weight: 600;
+      font-size: clamp(28px, 4.5vw, 44px);
+      font-weight: 700;
       text-align: center;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
     }
 
     .filter-sub {
-      font-size: 14px;
+      font-size: 15px;
       color: var(--muted);
       text-align: center;
-      margin-bottom: 36px;
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ───── PATH CHOOSER ───── */
+
+    .path-chooser {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 28px;
+      transition: opacity 0.35s ease, max-height 0.45s cubic-bezier(0.22,1,0.36,1), margin 0.35s ease;
+      max-height: 240px;
+      overflow: visible;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+    }
+
+    .path-chooser.hidden {
+      opacity: 0 !important;
+      max-height: 0;
+      margin-bottom: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .path-card {
+      flex: 1;
+      max-width: 280px;
+      padding: 32px 28px 28px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: linear-gradient(160deg, rgba(25,25,30,0.8) 0%, rgba(14,14,18,0.9) 100%);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+    }
+
+    .path-card::after {
+      content: "\2192";
+      display: block;
+      margin-top: 6px;
+      font-size: 18px;
+      color: var(--accent);
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .path-card:hover {
+      border-color: var(--accent);
+      background: linear-gradient(160deg, rgba(30,30,36,0.9) 0%, rgba(18,18,22,1) 100%);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.55), 0 0 30px rgba(244,193,93,0.06);
+    }
+
+    .path-card:hover::after {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .path-card:active {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+
+    .path-card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+
+    .path-card-hint {
+      font-size: 12px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* ───── FILTER STEPS ───── */
+
+    .filter-step {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: max-height 0.45s cubic-bezier(0.22,1,0.36,1), opacity 0.35s ease;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .filter-step.visible {
+      max-height: 400px;
+      opacity: 1;
+      pointer-events: auto;
     }
 
     .filter-label {
@@ -165,7 +246,7 @@
       box-shadow: 0 0 16px rgba(244,193,93,0.08);
     }
 
-    .theme-filters {
+    .narrow-filters {
       max-height: 0;
       overflow: hidden;
       opacity: 0;
@@ -173,68 +254,71 @@
       margin-bottom: 0;
     }
 
-    .theme-filters.visible {
-      max-height: 120px;
+    .narrow-filters.visible {
+      max-height: 160px;
       opacity: 1;
       margin-bottom: 20px;
     }
 
-    .theme-filters .filter-row {
+    .narrow-filters .filter-row {
       margin-bottom: 0;
     }
 
-    .theme-pill {
+    .narrow-pill {
       padding: 6px 14px;
       font-size: 11px;
       letter-spacing: 0.06em;
     }
 
     .filter-reset {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(240,108,95,0.25);
+      border-radius: 999px;
+      background: rgba(240,108,95,0.08);
+      color: var(--accent-3);
       font-size: 12px;
-      color: var(--muted);
+      font-weight: 500;
+      letter-spacing: 0.06em;
       cursor: pointer;
-      border: none;
-      background: none;
-      padding: 6px 12px;
-      transition: color var(--transition-fast);
-      margin-top: 4px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease, color var(--transition-fast);
+      padding: 7px 16px 7px 13px;
+      margin-bottom: 20px;
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
     }
 
-    .filter-reset.visible {
-      opacity: 1;
-      pointer-events: auto;
+    .filter-reset svg {
+      flex-shrink: 0;
     }
 
     .filter-reset:hover {
-      color: var(--accent-soft);
+      background: rgba(240,108,95,0.15);
+      border-color: rgba(240,108,95,0.4);
+    }
+
+    .filter-reset:active {
+      transform: scale(0.95);
     }
 
     .filter-result-count {
-      font-size: 12px;
-      color: #555;
-      margin-top: 8px;
-      min-height: 18px;
-      transition: opacity 0.3s ease;
+      display: none;
     }
 
     /* ───── EXPLORE BUTTON ───── */
 
     .explore-wrap {
-      margin-top: 32px;
+      margin-top: 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 10px;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.65s forwards;
     }
 
     .explore-divider {
-      width: 48px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
-      margin-bottom: 8px;
+      display: none;
     }
 
     .explore-button {
@@ -263,11 +347,12 @@
     }
 
     .explore-context {
-      font-size: 12px;
-      color: #555;
-      max-width: 320px;
+      font-size: 13px;
+      color: #777;
+      max-width: 360px;
       text-align: center;
       line-height: 1.5;
+      transition: color 0.3s ease;
     }
 
     /* ───── BACK TO FILTER (hamburger) ───── */
@@ -334,7 +419,7 @@
 
     .deck-stage {
       position: relative;
-      flex: 1 1 0%;
+      flex: 1 1 auto;
       min-width: 0;
       max-width: 620px;
       min-height: 420px;
@@ -492,12 +577,69 @@
     .card-explanation-inner { padding-top: 16px; padding-right: 8px; font-size: 14px; line-height: 1.75; color: #c8c8c8; }
     .card-explanation-inner strong { color: var(--accent); font-weight: 500; }
 
+    /* ───── SAVE HEART ───── */
+
+    .card-save-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: rgba(0,0,0,0.35);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.22s ease, background 0.22s ease;
+      z-index: 5;
+    }
+
+    .card-save-btn:hover {
+      background: rgba(0,0,0,0.55);
+      transform: scale(1.12);
+    }
+
+    .card-save-btn:active {
+      transform: scale(0.92);
+    }
+
+    .card-save-btn svg {
+      width: 18px;
+      height: 18px;
+      transition: fill 0.25s ease, stroke 0.25s ease;
+    }
+
+    .card-save-btn .heart-outline {
+      stroke: #777;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .card-save-btn.saved .heart-outline {
+      stroke: var(--accent-3);
+      fill: var(--accent-3);
+    }
+
+    .card-save-btn.saved {
+      animation: heartPop 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes heartPop {
+      0%   { transform: scale(1); }
+      40%  { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+
     /* ───── NAVIGATION ───── */
 
     .deck-stage-wrapper {
       display: flex;
       align-items: center;
       gap: 16px;
+      width: 100%;
+      max-width: 700px;
     }
 
     .deck-nav { display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 40px; }
@@ -572,8 +714,9 @@
       header.scrolled { padding: 10px 16px; }
       .logo { font-size: 20px; letter-spacing: 0.3em; }
       nav { gap: 14px; font-size: 11px; }
-      .hero-inner { padding: 120px 20px 80px; }
-      .filter-section { padding: 60px 16px 40px; }
+      .filter-section { padding: 80px 16px 40px; min-height: auto; }
+      .path-chooser { flex-direction: column; align-items: center; }
+      .path-card { max-width: 100%; width: 100%; }
       .filter-row { gap: 8px; }
       .filter-pill { padding: 7px 14px; font-size: 12px; }
       .deck-section { padding: 60px 16px 100px; }
@@ -598,40 +741,59 @@
   <header>
     <div class="logo">STOIC&nbsp;WAY</div>
     <nav>
-      <a data-scroll="#hero">Home</a>
-      <a data-scroll="#filter">Library</a>
+      <a href="library.html">Library</a>
       <a href="index.html">Index</a>
       <a href="admin.html">Admin</a>
     </nav>
   </header>
 
-  <section class="hero" id="hero">
-    <div class="hero-inner">
-      <div class="hero-kicker">A daily practice for your mind</div>
-      <h1 class="hero-title">Train how you <span class="em">meet</span> your life.</h1>
-      <p class="hero-subtitle">
-        One ancient thought each day, explained for right now. Draw a card,
-        sit with it, and watch how your reactions start to change.
-      </p>
-      <button class="cta-button" id="reveal-deck">What are you facing? &nbsp;&darr;</button>
-      <div class="cta-hint">Scroll down or press <strong>Space</strong></div>
-    </div>
-  </section>
-
-  <!-- FILTER SECTION -->
+  <!-- FILTER SECTION (primary landing) -->
   <section class="filter-section" id="filter">
-    <h2 class="filter-heading">What are you facing?</h2>
-    <p class="filter-sub">Choose what feels closest. We'll find the right thought.</p>
+    <h2 class="filter-heading">Find the right thought.</h2>
+    <p class="filter-sub">Choose how you'd like to explore the library.</p>
 
-    <div class="filter-label">I'm feeling&hellip;</div>
-    <div class="filter-row" id="mood-filters"></div>
-
-    <div class="theme-filters" id="theme-filters-wrap">
-      <div class="filter-label">Narrow by theme</div>
-      <div class="filter-row" id="theme-filters"></div>
+    <!-- Step 1: Choose a path -->
+    <div class="path-chooser" id="path-chooser">
+      <button class="path-card" id="path-mood">
+        <span class="path-card-title">Browse by Mood</span>
+        <span class="path-card-hint">Anxious, Stuck, Angry, Grieving&hellip;</span>
+      </button>
+      <button class="path-card" id="path-theme">
+        <span class="path-card-title">Browse by Theme</span>
+        <span class="path-card-hint">On Virtue, On Action, On Time&hellip;</span>
+      </button>
     </div>
 
-    <button class="filter-reset" id="filter-reset">Show all cards</button>
+    <!-- Step 2: Mood-first path -->
+    <div class="filter-step" id="mood-step">
+      <button class="filter-reset" id="reset-mood">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+        Reset
+      </button>
+      <div class="filter-label">I'm feeling&hellip;</div>
+      <div class="filter-row" id="mood-filters"></div>
+
+      <div class="narrow-filters" id="narrow-theme-wrap">
+        <div class="filter-label">Narrow by theme</div>
+        <div class="filter-row" id="narrow-theme-filters"></div>
+      </div>
+    </div>
+
+    <!-- Step 2: Theme-first path -->
+    <div class="filter-step" id="theme-step">
+      <button class="filter-reset" id="reset-theme">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+        Reset
+      </button>
+      <div class="filter-label">Pick a theme</div>
+      <div class="filter-row" id="theme-filters"></div>
+
+      <div class="narrow-filters" id="narrow-mood-wrap">
+        <div class="filter-label">Narrow by mood</div>
+        <div class="filter-row" id="narrow-mood-filters"></div>
+      </div>
+    </div>
+
     <div class="filter-result-count" id="filter-count"></div>
 
     <div class="explore-wrap">
@@ -677,10 +839,116 @@
 
   <script>
     // ════════════════════════════════════
-    //  LOAD QUOTE DATA FROM JSON
+    //  EMBEDDED QUOTE DATA (offline support)
+    // ════════════════════════════════════
+    const EMBEDDED_QUOTES = [
+  {
+    "id": 1,
+    "theme": "On Action",
+    "moods": ["stuck", "procrastinating"],
+    "quote": "Waste no more time arguing what a good man should be. Be one.",
+    "author": "Marcus Aurelius",
+    "source": "Meditations, 10.16",
+    "explanation": "Marcus reminds us that philosophy is not theoretical. Virtue is practiced through action, not endless discussion."
+  },
+  {
+    "id": 2,
+    "theme": "On Perspective",
+    "moods": ["anxious", "overwhelmed"],
+    "quote": "We suffer more often in imagination than in reality.",
+    "author": "Seneca",
+    "source": "Letters from a Stoic, Letter 13",
+    "explanation": "Much of our stress comes from anticipation rather than events themselves."
+  },
+  {
+    "id": 3,
+    "theme": "On Discipline",
+    "moods": ["distracted", "unmotivated"],
+    "quote": "No man is free who is not master of himself.",
+    "author": "Epictetus",
+    "source": "Discourses, Book 2",
+    "explanation": "True freedom in Stoicism is self-mastery. Discipline creates autonomy."
+  },
+  {
+    "id": 4,
+    "theme": "On Adversity",
+    "moods": ["frustrated", "setback"],
+    "quote": "The impediment to action advances action. What stands in the way becomes the way.",
+    "author": "Marcus Aurelius",
+    "source": "Meditations, 5.20",
+    "explanation": "Obstacles are not interruptions \u2014 they are the path itself."
+  },
+  {
+    "id": 5,
+    "theme": "On Time",
+    "moods": ["unfocused", "wasting time"],
+    "quote": "It is not that we have a short time to live, but that we waste much of it.",
+    "author": "Seneca",
+    "source": "On the Shortness of Life",
+    "explanation": "Life feels short when attention is fragmented. Intentional living stretches time."
+  },
+  {
+    "id": 6,
+    "theme": "On Character",
+    "moods": ["self-doubt", "uncertain"],
+    "quote": "First say to yourself what you would be; and then do what you have to do.",
+    "author": "Epictetus",
+    "source": "Discourses, Book 3",
+    "explanation": "Identity precedes action. Define your character, then act accordingly."
+  },
+  {
+    "id": 7,
+    "theme": "On Resilience",
+    "moods": ["tired", "burned out"],
+    "quote": "Difficulties strengthen the mind, as labor does the body.",
+    "author": "Seneca",
+    "source": "Letters from a Stoic, Letter 67",
+    "explanation": "Struggle is resistance training for the mind."
+  },
+  {
+    "id": 8,
+    "theme": "On Control",
+    "moods": ["angry", "reactive"],
+    "quote": "It is not things themselves that disturb us, but our judgments about them.",
+    "author": "Epictetus",
+    "source": "Enchiridion, 5",
+    "explanation": "Events are neutral. Our interpretation gives them emotional force."
+  },
+  {
+    "id": 9,
+    "theme": "On Perspective",
+    "moods": ["anxious", "angry", "stuck", "overwhelmed", "doubting yourself", "procrastinating", "facing change"],
+    "quote": "\u201CAll is as thinking makes it so.\u201D The retort made to Monimus the Cynic is clear enough: but clear too is the value of his saying, if one takes the kernel of it, as far as it is true.",
+    "author": "Marcus Aurelius",
+    "source": "Meditations 2.15",
+    "explanation": "Here Marcus recalls a saying attributed as being spoken to Monimus the Cynic, once a slave to a Corinthian money-changer: \u201CAll is as thinking makes it so\u201D - sometimes rendered simply as \u201CAll is opinion.\u201D\n\nTaken literally, this is obviously not true. Fire still burns. Pain still hurts. Loss is still loss. But the value of the statement lies in its great kernel of truth: what disturbs us is not the event itself, but the judgment we attach to it.\n\nEvery perception, emotional impulse, and decision begins with a thought, often one that we so quickly mistake it for reality. We feel insulted because we decide we\u2019ve been wronged. We feel afraid because we judge a situation to be threatening. We feel embarrassed by projecting our fears and paranoias onto the unknowable minds of others.\n\nStoicism asks us to slow that process down.\n\nLetting ourselves fall prey to our impulses lets that part of you which is chaos snatch the reins from that part of you that is reason. If we follow reason, and judgements create our experience, then as long as we are rational, living a life in accordance with nature, we are not powerless. \n\nWe can examine our thoughts. We can replace \u201CThis is terrible\u201D with \u201CThis is difficult, but workable.\u201D We can replace \u201CI\u2019ve failed\u201D with \u201CI\u2019ve learned.\u201D We can choose growth over ego. We can be the audience to our own lives, and one we ought to give a good show.\n\nIn this way, not only does your judgement of reality change, but so too can your character. \n\n\u201CI think therefore I am\u201D\n\nYou become what you repeatedly tell you are. Not empty affirmations, chosen judgements that shape conduct over time. It\u2019s with repetition that all skills are learned, with habit all virtues become character."
+  }
+];
+
+    // ════════════════════════════════════
+    //  SAVED QUOTES (localStorage)
+    // ════════════════════════════════════
+    function getSavedIds() {
+      try { return JSON.parse(localStorage.getItem("stoic_saved") || "[]"); }
+      catch { return []; }
+    }
+
+    function toggleSavedQuote(id) {
+      const ids = getSavedIds();
+      const idx = ids.indexOf(id);
+      if (idx === -1) ids.push(id);
+      else ids.splice(idx, 1);
+      localStorage.setItem("stoic_saved", JSON.stringify(ids));
+      return idx === -1; // returns true if now saved
+    }
+
+    // ════════════════════════════════════
+    //  LOAD QUOTE DATA
     // ════════════════════════════════════
     let allQuotes = [];
 
+    // Try to fetch from JSON file first (allows live updates via admin),
+    // fall back to embedded data for offline / file:// usage
     fetch("quotes.json")
       .then(res => {
         if (!res.ok) throw new Error("Could not load quotes.json");
@@ -691,8 +959,9 @@
         initApp();
       })
       .catch(err => {
-        console.error(err);
-        document.body.innerHTML = '<p style="color:#f55;text-align:center;margin-top:40vh;">Could not load quotes.json &mdash; make sure it\u2019s in the same folder as this file.</p>';
+        console.warn("quotes.json unavailable, using embedded data:", err.message);
+        allQuotes = EMBEDDED_QUOTES;
+        initApp();
       });
 
     function initApp() {
@@ -710,119 +979,192 @@
       "doubting yourself": "Doubting myself",
       "procrastinating": "Procrastinating",
       "facing change": "Facing change",
+      "scared": "Scared",
     };
 
-    // Extract unique themes from quotes
     const allThemes = [...new Set(allQuotes.map(q => q.theme))];
 
     // ════════════════════════════════════
     //  FILTER STATE
     // ════════════════════════════════════
+    let activePath = null;   // "mood" or "theme"
     let activeMood = null;
     let activeTheme = null;
     let filteredQuotes = [...allQuotes];
 
     // ════════════════════════════════════
-    //  BUILD FILTER PILLS
+    //  DOM REFS
     // ════════════════════════════════════
-    const moodFiltersEl = document.getElementById("mood-filters");
-    const themeFiltersEl = document.getElementById("theme-filters");
-    const themeWrap = document.getElementById("theme-filters-wrap");
-    const filterReset = document.getElementById("filter-reset");
-    const filterCount = document.getElementById("filter-count");
-    const deckTitle = document.getElementById("deck-title");
+    const pathChooser      = document.getElementById("path-chooser");
+    const moodStep         = document.getElementById("mood-step");
+    const themeStep        = document.getElementById("theme-step");
+    const moodFiltersEl    = document.getElementById("mood-filters");
+    const themeFiltersEl   = document.getElementById("theme-filters");
+    const narrowThemeWrap  = document.getElementById("narrow-theme-wrap");
+    const narrowThemeEl    = document.getElementById("narrow-theme-filters");
+    const narrowMoodWrap   = document.getElementById("narrow-mood-wrap");
+    const narrowMoodEl     = document.getElementById("narrow-mood-filters");
+    const filterCount      = document.getElementById("filter-count");
+    const deckTitle        = document.getElementById("deck-title");
+    const exploreBtn       = document.getElementById("explore-btn");
+    const exploreContext   = document.getElementById("explore-context");
 
-    // Mood pills
+    // ════════════════════════════════════
+    //  PATH CHOOSER
+    // ════════════════════════════════════
+    document.getElementById("path-mood").addEventListener("click", () => {
+      activePath = "mood";
+      pathChooser.classList.add("hidden");
+      moodStep.classList.add("visible");
+      themeStep.classList.remove("visible");
+    });
+
+    document.getElementById("path-theme").addEventListener("click", () => {
+      activePath = "theme";
+      pathChooser.classList.add("hidden");
+      themeStep.classList.add("visible");
+      moodStep.classList.remove("visible");
+    });
+
+    // ════════════════════════════════════
+    //  BUILD PILLS
+    // ════════════════════════════════════
+
+    // Primary mood pills (mood-first path)
     Object.entries(moodLabels).forEach(([key, label]) => {
       const pill = document.createElement("button");
       pill.className = "filter-pill";
       pill.textContent = label;
       pill.dataset.mood = key;
-      pill.addEventListener("click", () => toggleMood(key));
+      pill.addEventListener("click", () => selectMood(key));
       moodFiltersEl.appendChild(pill);
     });
 
-    // Theme pills
-    function buildThemePills(availableThemes) {
-      themeFiltersEl.innerHTML = "";
+    // Primary theme pills (theme-first path)
+    allThemes.forEach(theme => {
+      const pill = document.createElement("button");
+      pill.className = "filter-pill";
+      pill.textContent = theme;
+      pill.dataset.theme = theme;
+      pill.addEventListener("click", () => selectTheme(theme));
+      themeFiltersEl.appendChild(pill);
+    });
+
+    // Build narrowing theme pills (shown after mood is picked)
+    function buildNarrowThemes(availableThemes) {
+      narrowThemeEl.innerHTML = "";
       availableThemes.forEach(theme => {
         const pill = document.createElement("button");
-        pill.className = "filter-pill theme-pill";
+        pill.className = "filter-pill narrow-pill";
         pill.textContent = theme;
         pill.dataset.theme = theme;
         if (activeTheme === theme) pill.classList.add("active");
-        pill.addEventListener("click", () => toggleTheme(theme));
-        themeFiltersEl.appendChild(pill);
+        pill.addEventListener("click", () => { toggleNarrowTheme(theme); });
+        narrowThemeEl.appendChild(pill);
       });
     }
 
-    buildThemePills(allThemes);
+    // Build narrowing mood pills (shown after theme is picked)
+    function buildNarrowMoods(availableMoods) {
+      narrowMoodEl.innerHTML = "";
+      availableMoods.forEach(key => {
+        const pill = document.createElement("button");
+        pill.className = "filter-pill narrow-pill";
+        pill.textContent = moodLabels[key] || key;
+        pill.dataset.mood = key;
+        if (activeMood === key) pill.classList.add("active");
+        pill.addEventListener("click", () => { toggleNarrowMood(key); });
+        narrowMoodEl.appendChild(pill);
+      });
+    }
 
     // ════════════════════════════════════
     //  FILTER LOGIC
     // ════════════════════════════════════
-    function toggleMood(mood) {
-      if (activeMood === mood) {
-        activeMood = null;
-      } else {
-        activeMood = mood;
-      }
-      activeTheme = null; // reset theme when mood changes
+
+    function selectMood(mood) {
+      activeMood = (activeMood === mood) ? null : mood;
+      activeTheme = null;
       applyFilters();
     }
 
-    function toggleTheme(theme) {
-      if (activeTheme === theme) {
-        activeTheme = null;
-      } else {
-        activeTheme = theme;
-      }
+    function selectTheme(theme) {
+      activeTheme = (activeTheme === theme) ? null : theme;
+      activeMood = null;
       applyFilters();
     }
 
-    const exploreBtn = document.getElementById("explore-btn");
-    const exploreContext = document.getElementById("explore-context");
+    function toggleNarrowTheme(theme) {
+      activeTheme = (activeTheme === theme) ? null : theme;
+      applyFilters();
+    }
+
+    function toggleNarrowMood(mood) {
+      activeMood = (activeMood === mood) ? null : mood;
+      applyFilters();
+    }
 
     function applyFilters() {
-      // Compute what WOULD be filtered (for preview count)
       filteredQuotes = allQuotes.filter(q => {
         if (activeMood && !q.moods.includes(activeMood)) return false;
         if (activeTheme && q.theme !== activeTheme) return false;
         return true;
       });
 
-      // Update mood pill states
-      moodFiltersEl.querySelectorAll(".filter-pill").forEach(pill => {
-        pill.classList.toggle("active", pill.dataset.mood === activeMood);
-      });
+      if (activePath === "mood") {
+        // Highlight active mood pill
+        moodFiltersEl.querySelectorAll(".filter-pill").forEach(pill => {
+          pill.classList.toggle("active", pill.dataset.mood === activeMood);
+        });
 
-      // Show/hide theme pills
-      if (activeMood) {
-        const moodFiltered = allQuotes.filter(q => q.moods.includes(activeMood));
-        const availableThemes = [...new Set(moodFiltered.map(q => q.theme))];
-        buildThemePills(availableThemes);
-        themeWrap.classList.add("visible");
-      } else {
-        themeWrap.classList.remove("visible");
+        // Show narrowing themes if a mood is selected
+        if (activeMood) {
+          const moodFiltered = allQuotes.filter(q => q.moods.includes(activeMood));
+          const available = [...new Set(moodFiltered.map(q => q.theme))];
+          buildNarrowThemes(available);
+          narrowThemeWrap.classList.add("visible");
+        } else {
+          narrowThemeWrap.classList.remove("visible");
+        }
       }
 
-      // Show/hide reset
-      filterReset.classList.toggle("visible", activeMood !== null || activeTheme !== null);
+      if (activePath === "theme") {
+        // Highlight active theme pill
+        themeFiltersEl.querySelectorAll(".filter-pill").forEach(pill => {
+          pill.classList.toggle("active", pill.dataset.theme === activeTheme);
+        });
 
-      // Update result count
-      if (activeMood) {
+        // Show narrowing moods if a theme is selected
+        if (activeTheme) {
+          const themeFiltered = allQuotes.filter(q => q.theme === activeTheme);
+          const available = [...new Set(themeFiltered.flatMap(q => q.moods))];
+          buildNarrowMoods(available);
+          narrowMoodWrap.classList.add("visible");
+        } else {
+          narrowMoodWrap.classList.remove("visible");
+        }
+      }
+
+      // Result count
+      const hasFilter = activeMood || activeTheme;
+      if (hasFilter) {
         filterCount.textContent = `${filteredQuotes.length} card${filteredQuotes.length !== 1 ? "s" : ""} found`;
       } else {
         filterCount.textContent = "";
       }
 
-      // Update explore context text
+      // Explore context
+      const n = filteredQuotes.length;
+      const cs = `${n} card${n !== 1 ? "s" : ""}`;
+      const themeName = activeTheme ? activeTheme.replace(/^On\s+/i, "").toLowerCase() : "";
       if (activeMood && activeTheme) {
-        const moodLabel = moodLabels[activeMood].toLowerCase();
-        exploreContext.textContent = `${filteredQuotes.length} card${filteredQuotes.length !== 1 ? "s" : ""} on ${activeTheme.toLowerCase()} for when you're ${moodLabel}`;
+        const ml = moodLabels[activeMood].toLowerCase();
+        exploreContext.textContent = `${cs} on ${themeName} for when you're ${ml}`;
       } else if (activeMood) {
-        const moodLabel = moodLabels[activeMood].toLowerCase();
-        exploreContext.textContent = `${filteredQuotes.length} card${filteredQuotes.length !== 1 ? "s" : ""} for when you're ${moodLabel}`;
+        const ml = moodLabels[activeMood].toLowerCase();
+        exploreContext.textContent = `${cs} for when you're ${ml}`;
+      } else if (activeTheme) {
+        exploreContext.textContent = `${cs} on ${themeName}`;
       } else {
         exploreContext.textContent = `Browse all ${allQuotes.length} cards in the library`;
       }
@@ -830,22 +1172,24 @@
 
     // EXPLORE: commits the filter and scrolls to deck
     function explore() {
-      // Apply current filter state to deck
       filteredQuotes = allQuotes.filter(q => {
         if (activeMood && !q.moods.includes(activeMood)) return false;
         if (activeTheme && q.theme !== activeTheme) return false;
         return true;
       });
 
-      // Update deck title
-      if (activeMood) {
-        const moodLabel = moodLabels[activeMood].toLowerCase();
-        deckTitle.textContent = `Cards for when you're ${moodLabel}`;
+      if (activeMood && activeTheme) {
+        const ml = moodLabels[activeMood].toLowerCase();
+        deckTitle.textContent = `${activeTheme} \u2014 feeling ${ml}`;
+      } else if (activeMood) {
+        const ml = moodLabels[activeMood].toLowerCase();
+        deckTitle.textContent = `Cards for when you're ${ml}`;
+      } else if (activeTheme) {
+        deckTitle.textContent = activeTheme;
       } else {
-        deckTitle.textContent = "Today's Cards";
+        deckTitle.textContent = "Today\u2019s Cards";
       }
 
-      // Rebuild deck and scroll
       currentIndex = 0;
       buildDeck(filteredQuotes);
 
@@ -856,11 +1200,27 @@
 
     exploreBtn.addEventListener("click", explore);
 
-    filterReset.addEventListener("click", () => {
+    function resetFilters() {
+      activePath = null;
       activeMood = null;
       activeTheme = null;
-      applyFilters();
-    });
+
+      // Fade out the current step, then bring back the chooser
+      moodStep.classList.remove("visible");
+      themeStep.classList.remove("visible");
+      narrowThemeWrap.classList.remove("visible");
+      narrowMoodWrap.classList.remove("visible");
+      filterCount.textContent = "";
+      exploreContext.textContent = `Browse all ${allQuotes.length} cards in the library`;
+
+      // Brief pause so collapse is visible before chooser reappears
+      setTimeout(() => {
+        pathChooser.classList.remove("hidden");
+      }, 200);
+    }
+
+    document.getElementById("reset-mood").addEventListener("click", resetFilters);
+    document.getElementById("reset-theme").addEventListener("click", resetFilters);
 
     // Back-to-filter button
     document.getElementById("back-to-filter").addEventListener("click", () => {
@@ -924,7 +1284,11 @@
 
         const front = document.createElement("div");
         front.className = "card-face card-front";
+        const isSaved = getSavedIds().includes(q.id);
         front.innerHTML = `
+          <button class="card-save-btn${isSaved ? ' saved' : ''}" data-quote-id="${q.id}" title="${isSaved ? 'Remove from library' : 'Save to library'}">
+            <svg viewBox="0 0 24 24"><path class="heart-outline" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </button>
           <div class="card-theme-pill">${q.theme}</div>
           <div class="card-quote">${q.quote}</div>
           <div class="card-attribution">
@@ -968,6 +1332,7 @@
 
       positionStack();
       attachExplainListeners();
+      attachSaveListeners();
     }
 
     // ════════════════════════════════════
@@ -1100,6 +1465,27 @@
     }
 
     // ════════════════════════════════════
+    //  SAVE BUTTON LISTENERS
+    // ════════════════════════════════════
+    function attachSaveListeners() {
+      document.querySelectorAll(".card-save-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const id = parseInt(btn.dataset.quoteId, 10);
+          const nowSaved = toggleSavedQuote(id);
+          btn.classList.toggle("saved", nowSaved);
+          btn.title = nowSaved ? "Remove from library" : "Save to library";
+          // Re-trigger animation
+          if (nowSaved) {
+            btn.classList.remove("saved");
+            void btn.offsetWidth; // force reflow
+            btn.classList.add("saved");
+          }
+        });
+      });
+    }
+
+    // ════════════════════════════════════
     //  TOUCH SWIPE
     // ════════════════════════════════════
     let touchStartX = 0, touchStartY = 0, isSwiping = false;
@@ -1138,10 +1524,6 @@
     // ════════════════════════════════════
     nextBtn.addEventListener("click", goNext);
     prevBtn.addEventListener("click", goPrev);
-    document.getElementById("reveal-deck").addEventListener("click", () => {
-      document.getElementById("filter").scrollIntoView({ behavior: "smooth" });
-    });
-
     document.querySelectorAll("[data-scroll]").forEach(link => {
       link.addEventListener("click", () => {
         const el = document.querySelector(link.getAttribute("data-scroll"));
@@ -1157,6 +1539,7 @@
     // ════════════════════════════════════
     //  INIT
     // ════════════════════════════════════
+    exploreContext.textContent = `Browse all ${allQuotes.length} cards in the library`;
     buildDeck(allQuotes);
 
     } // end initApp
